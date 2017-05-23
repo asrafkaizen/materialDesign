@@ -1,0 +1,73 @@
+<resources>
+    <string name="app_name">Material Design Practice</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
+    <string name="action_home">Home</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="default_party_size">1</string>
+    <string name="default_guest_name">Enter guest name</string>
+
+    <string name="nav_item_home">Home</string>
+    <string name="nav_item_resize">Text Resizing</string>
+    <string name="nav_item_notifications">Messages</string>
+    <string name="nav_item_intent">Intent</string>
+    <string name="nav_item_compass">Compass</string>
+    <string name="nav_item_SQLite">SQLite</string>
+    <string name="nav_item_camera">Camera</string>
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_home</item>
+        <item>@string/nav_item_intent</item>
+        <item>@string/nav_item_compass</item>
+        <item>@string/nav_item_resize</item>
+        <item>@string/nav_item_SQLite</item>
+        <item>@string/nav_item_camera</item>
+        <item>@string/nav_item_notifications</item>
+        <item>bleh</item>
+        <item>bleh</item>
+        <item>bleh</item>
+        <item>bleh</item>
+        <item>bleh</item>
+        <item>bleh</item>
+        <item>bleh</item>
+        <item>bleh</item>
+        <item>bleh</item>
+        <item>bleh</item>
+        <item>bleh</item>
+        <item>bleh</item>
+        <item>bleh</item>
+        <item>bleh</item>
+        <item>bleh</item>
+        <item>bleh</item>
+        <item>bleh</item>
+        <item>bleh</item>
+        <item>bleh</item>
+    </string-array>
+
+    <string name="title_camera">Camera</string>
+    <string name="title_messages">Messages</string>
+    <string name="title_resizing">text Resizing</string>
+    <string name="title_home">Home</string>
+    <string name="title_sql">SQLite</string>
+    <string name="title_compass">Compass</string>
+
+    <string-array name="utp_courses">
+        <item>Mechanical Engineering</item>
+        <item>Checmical Engineering</item>
+        <item>Electrical Engineering</item>
+        <item>Petroleum Engineering</item>
+        <item>Civil Engineering</item>
+        <item>Petroelum Geoscience</item>
+        <item>Information Technology</item>
+        <item>Busineess Information System</item>
+        <item>Software Engineering</item>
+        <item>Applied Physics</item>
+        <item>Applied Chemistry</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

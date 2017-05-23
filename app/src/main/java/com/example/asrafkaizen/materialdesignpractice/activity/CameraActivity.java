@@ -16,6 +16,7 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 //REQUIRES IN APP GRADLE : compile 'com.android.support:design:25.3.1'
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -23,6 +24,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 //REQUIRES IN APP GRADLE: compile 'com.github.bumptech.glide:glide:3.7.0'
@@ -40,8 +42,8 @@ public class CameraActivity extends AppCompatActivity
 
     private static final String TAG = "MainActivity";
 
-    final int PERMISSION_FALSE = -1;
-    final int PERMISSION_TRUE = 0;
+    public static final int RequestPermissionCode = 1;
+    public static final int PERMISSION_TRUE = 0;
     final int TAKE_PICTURE = 1;
     final int ACTIVITY_SELECT_IMAGE = 2;
 
@@ -61,38 +63,20 @@ public class CameraActivity extends AppCompatActivity
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-                permissionCheckBeforeSelectImage(); //checks for permission
+                boolean hasPermission = checkRuntimePermission();
+                if ( hasPermission ) { //check for permission before proceeding
+                    selectImage();
+                }
             }
         });
+
         closeBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Intent iclose = new Intent (getApplicationContext(), MainActivity.class);
                 startActivity (iclose);
             }
         });
-    }
-
-    private void permissionCheckBeforeSelectImage() {
-        int permissionCheckSt1 = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE);
-        int permissionCheckSt2 = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        int permissionCheckCamera = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA);
-        if ((permissionCheckSt1 + permissionCheckSt2 + permissionCheckCamera != PERMISSION_TRUE) || (permissionCheckSt2 != PERMISSION_TRUE)) {
-            final String permission_req = "You must allow storage and camera to use this function";
-            Snackbar snackbar = Snackbar
-                    .make(img, permission_req, Snackbar.LENGTH_LONG)
-                    .setAction("ALLOW", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            toPermissions(view);
-                        }
-                    });
-            snackbar.show();
-        }else {
-            selectImage();
-        }
     }
 
     public void toPermissions (View view){
@@ -218,5 +202,35 @@ public class CameraActivity extends AppCompatActivity
             }
         }
         return true;
+    }
+
+    public boolean checkRuntimePermission() {
+
+        boolean granted = false;
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, RequestPermissionCode);
+        }
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.CAMERA)) {
+
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.CAMERA}, RequestPermissionCode);
+        }
+
+        int permissionCheckSt1 = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE);
+        int permissionCheckSt2 = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int permissionCheckCamera = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA);
+
+        if ((permissionCheckSt1 + permissionCheckSt2 + permissionCheckCamera == PERMISSION_TRUE)) {
+            granted = true;
+            Toast.makeText(getApplicationContext(), "Now you can use this function", Toast.LENGTH_SHORT).show();
+        }
+
+        return granted;
     }
 }
